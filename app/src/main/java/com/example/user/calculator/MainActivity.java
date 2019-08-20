@@ -8,6 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
     //Button zero,one,two,three,four,five,six,seven,eight,nine,point,div,mul,sub,add,lbracket,rbracket,per,cut;
     private int[] numericButtons = {R.id.point, R.id.zero, R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine};
@@ -56,8 +61,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-                    String res = expressionEvaluator.evaluate(expressionEvaluator.toPostfix(expression.getText().toString()));
+                    DecimalFormat df = new DecimalFormat("0.###");
+                    Expression e = new ExpressionBuilder(expression.getText().toString()).build();
+                    //ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+                    //String res = expressionEvaluator.evaluate(expressionEvaluator.toPostfix(expression.getText().toString()));
+                    Double r = e.evaluate();
+                    String res="";
+                    if(r%1==0){
+                        long re = (long)Math.floor(e.evaluate());
+                        res = Long.toString(re);
+                    }else{
+                        res = Double.toString(Math.floor(e.evaluate()));
+                    }
+
                     result.setText(res);
                     expression.setText(res);
                     flag = true;
