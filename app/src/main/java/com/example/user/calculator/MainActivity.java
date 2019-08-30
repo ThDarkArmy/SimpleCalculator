@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     result.setText(res);
                     expression.setText(res);
                     flag = true;
-                    //expression.setText("");
+                    expression.setSelection(expression.getText().toString().length());
                 }catch(Exception e){
                     Toast.makeText(MainActivity.this,"Check Your Expression!",Toast.LENGTH_LONG).show();
                 }
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 Button btn = (Button)v;
 
                 expression.setText(expression.getText().toString()+btn.getText().toString());
+                expression.setSelection(expression.getText().toString().length());
             }
         };
         for (int id : numericButtons) findViewById(id).setOnClickListener(listener);
@@ -104,9 +105,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button btn = (Button)v;
                 expression.setText(expression.getText().toString()+btn.getText().toString());
+                expression.setSelection(expression.getText().toString().length());
             }
         };
-        for(int id : operatorButtons) findViewById(id).setOnClickListener(listener);
+        for(int id : operatorButtons){
+            findViewById(id).setOnClickListener(listener);
+
+        }
     }
 
 

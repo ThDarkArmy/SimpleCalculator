@@ -44,6 +44,7 @@ public class ExpressionEvaluator {
             case '-': return op2-op1;
             case '*': return op1*op2;
             case '/': return op2/op1;
+            case '^': return (int)Math.pow(op2,op1);
         }
         return 0;
     }
@@ -56,7 +57,7 @@ public class ExpressionEvaluator {
         for(int i=0;i<st.length();i++){
             if(ar[i]==' '){
                 continue;
-            }else if(ar[i]=='-' || ar[i]=='+' || ar[i]=='*' || ar[i]=='/'){
+            }else if(ar[i]=='-' || ar[i]=='+' || ar[i]=='*' || ar[i]=='/' || ar[i]=='^'){
                 while(!op.empty()  && op.peek()!='(' && hasPrecedence(ar[i],op.peek())){
                     str = str +" "+ Character.toString(op.peek());
                     op.pop();
@@ -83,8 +84,8 @@ public class ExpressionEvaluator {
         return str;
     }
     boolean hasPrecedence(char op1, char op2){
-        //if (op2 == '(' || op2 == ')')
-        //return false;
+        if(op1=='^')
+            return false;
         if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
             return false;
         else
