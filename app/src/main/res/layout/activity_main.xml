@@ -493,7 +493,7 @@
                 android:height="90dp"
                 android:layout_weight="4"
                 android:backgroundTint="#FFFFFF"
-                android:text="%"
+                android:text="^"
                 android:textColor="#000000"
                 android:textSize="26sp" />
 

@@ -8,10 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
-
-import java.text.DecimalFormat;
+//import net.objecthunter.exp4j.Expression;
+//import net.objecthunter.exp4j.ExpressionBuilder;
+//
+//import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
     //Button zero,one,two,three,four,five,six,seven,eight,nine,point,div,mul,sub,add,lbracket,rbracket,per,cut;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 if(st.length()==0){
                     result.setText("");
                 }
-                //expression.setSelection(0);
+                expression.setSelection(expression.getText().toString().length());
 
             }
         });
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 expression.setText("");
+                expression.setSelection(expression.getText().toString().length());
                 return false;
             }
         });
@@ -61,21 +62,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    DecimalFormat df = new DecimalFormat("0.###");
-                    Expression e = new ExpressionBuilder(expression.getText().toString()).build();
-                    //ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-                    //String res = expressionEvaluator.evaluate(expressionEvaluator.toPostfix(expression.getText().toString()));
-                    Double r = e.evaluate();
-                    String res="";
-                    if(r%1==0){
-                        long re = (long)Math.floor(e.evaluate());
-                        res = Long.toString(re);
+                    //DecimalFormat df = new DecimalFormat("0.###");
+                    //Expression e = new ExpressionBuilder(expression.getText().toString()).build();
+                    ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+                    Double res = expressionEvaluator.evaluate(expressionEvaluator.toPostfix(expression.getText().toString()));
+                    //Double r = e.evaluate();
+                    /*String r="";
+                    //Double r = Double.parseDouble(res);
+                    if(res%1==0){
+                        long re = (long)Math.floor(res);
+                        r = Long.toString(re);
                     }else{
-                        res = Double.toString(Math.floor(e.evaluate()));
-                    }
+                        r = Double.toString(Math.floor(res));
+                    }*/
 
-                    result.setText(res);
-                    expression.setText(res);
+                    result.setText(res.toString());
+                    expression.setText(res.toString());
                     flag = true;
                     expression.setSelection(expression.getText().toString().length());
                 }catch(Exception e){
